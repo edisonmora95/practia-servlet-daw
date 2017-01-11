@@ -26,8 +26,8 @@ and open the template in the editor.
 	        </div>
 	        <div id="navbar" class="collapse navbar-collapse">
 	          <ul class="nav navbar-nav">
-	            <li class="active"><a href="#">Inicio</a></li>
-	            <li><a href="#">Conferencia</a></li>
+	            <li class="active"><a href="index.html">Inicio</a></li>
+	            <li><a href="conferencias.html">Conferencia</a></li>
 	            <li><a href="#">Asistentes</a></li>
 	          </ul>
 	          <ul class="nav navbar-nav navbar-right">
@@ -38,7 +38,45 @@ and open the template in the editor.
 	      </div>
 	    </nav>
 
-	    
+	    <div class="container conferencias">
+	    	<h2>Conferencias a realizarse</h2>
+	    	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalUsuarios">Registrar nueva</button>	 
+	    	<table id="tablaConferencias" class="table table-bordered table-striped">
+	    		
+	    	</table>
+
+
+	    </div>
+
+
+	    <!-- Modal -->
+	    <div class="modal fade" id="modalUsuarios" tabindex="-1" role="dialog">
+	      <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	          <form action="CreateUser" method="post">
+	            <div class="modal-header">
+	              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	              <h4 class="modal-title">Ingresar Conferencia</h4>
+	            </div>
+	            <div class="modal-body">
+	                <div class="form-group">
+	                  <input type="text" class="form-control" id="inputNombreConferencia" name="inputNombreConferencia" placeholder="Nombre">
+	                </div>
+	                <div class="form-group">
+	                  <input type="date" name="inputDateConferencia">
+	                </div>
+	                <div class="form-group">
+	                  <input type="text" class="form-control" id="inputDescConferencia" name="inputDescConferencia" placeholder="Algo que agregar?">
+	                </div>
+	            </div>
+	            <div class="modal-footer">
+	              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+	              <button type="submit" class="btn btn-primary">Registrar</button>
+	            </div>
+	          </form>
+	        </div>
+	      </div>
+	    </div>
 
 	    <!--SCRIPTS-->
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
