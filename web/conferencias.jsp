@@ -1,5 +1,5 @@
 <%@page import="java.util.List"%>
-<%@page import="modelos.Usuario"%>
+<%@page import="modelos.Conferencia"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -57,9 +57,9 @@
 		            %>
 		            <tr>
 			            <th scope="row"><%= cont %></th>
-			            <td><%= u.getNombre() %></td>
-			            <td><%= u.getCorreo() %></td>
-			            <td><%= u.getRol() %></td>
+			            <td><%= c.getNombre() %></td>
+			            <td><%= c.getFecha() %></td>
+			            <td><%= c.getDescripcion() %></td>
 			            <td><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
 			            <td><a href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
 			        </tr>
