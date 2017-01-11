@@ -53,7 +53,7 @@ and open the template in the editor.
 	    <div class="modal fade" id="modalUsuarios" tabindex="-1" role="dialog">
 	      <div class="modal-dialog" role="document">
 	        <div class="modal-content">
-	          <form action="CreateUser" method="post">
+	          <form action="MainServlet" method="post">
 	            <div class="modal-header">
 	              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	              <h4 class="modal-title">Ingresar Conferencia</h4>
@@ -68,6 +68,8 @@ and open the template in the editor.
 	                <div class="form-group">
 	                  <input type="text" class="form-control" id="inputDescConferencia" name="inputDescConferencia" placeholder="Algo que agregar?">
 	                </div>
+                        <input type="hidden" id="inputAction" name="inputAction" value="1">
+                        
 	            </div>
 	            <div class="modal-footer">
 	              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>

@@ -12,13 +12,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import java.sql.*;
 /**
  *
- * @author chini
+ * @author Ivan Mera
  */
-@WebServlet(name = "CreateUser", urlPatterns = {"/CreateUser"})
-public class CreateUser extends HttpServlet {
+@WebServlet(name = "MainServlet", urlPatterns = {"/MainServlet"})
+public class MainServlet extends HttpServlet {
+    private MySQLAccess connection;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,18 +32,33 @@ public class CreateUser extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        //Conexion a la base de datos
+        this.connection = new MySQLAccess();
+        this.connection.connection();
+        
+        //Query para guardar el usuario en la DB
+        if(request.getParameter("inputAction").compareTo("1") == 0){
+            createConferencia(request);
+        }
+        
+        //Redireccionamiento
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CreateUser</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CreateUser at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        response.sendRedirect("conferencias.html");
+    }
+    
+    //Funcion para crear conferencias
+    private void createConferencia(HttpServletRequest req){
+        String nombre = req.getParameter("inputNombreConferencia");
+        String fecha = req.getParameter("inputDateConferencia");
+        String desc = req.getParameter("inputDescConferencia");
+        try {
+            this.connection.write("INSERT INTO conferencias (nombre,descripcion,fecha) VALUES ('" + nombre + "','" + desc + "','" + fecha + "');");
+            this.connection.closeConnection();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
