@@ -1,9 +1,7 @@
+<%@page import="java.util.List"%>
+<%@page import="modelos.Conferencia"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html lang="es">
     <head>
         <title>Espol conferencias</title>
@@ -27,7 +25,7 @@ and open the template in the editor.
 	        <div id="navbar" class="collapse navbar-collapse">
 	          <ul class="nav navbar-nav">
 	            <li class="active"><a href="index.html">Inicio</a></li>
-	            <li><a href="conferencias.html">Conferencia</a></li>
+	            <li><a href="conferencias.jsp">Conferencia</a></li>
 	            <li><a href="#">Asistentes</a></li>
 	          </ul>
 	          <ul class="nav navbar-nav navbar-right">
@@ -40,17 +38,43 @@ and open the template in the editor.
 
 	    <div class="container conferencias">
 	    	<h2>Conferencias a realizarse</h2>
-	    	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalUsuarios">Registrar nueva</button>	 
+	    	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalConferencias">Registrar nueva</button>	 
 	    	<table id="tablaConferencias" class="table table-bordered table-striped">
-	    		
+	    		<thead>
+	    			<tr>
+			            <th>Nombre</th>
+			            <th>Fecha</th>
+			            <th>Descripcion</th>
+			            <th></th>
+			            <th></th>
+		          	</tr>
+	    		</thead>
+	    		<tbody>
+	    			<%
+		                List<Conferencia> conferencias = (List<Conferencia>) request.getAttribute("conferencia");
+		                int cont = 0;
+		                for (Conferencia c : conferencias) {
+		            %>
+		            <tr>
+			            <th scope="row"><%= cont %></th>
+			            <td><%= c.getNombre() %></td>
+			            <td><%= c.getFecha() %></td>
+			            <td><%= c.getDescripcion() %></td>
+			            <td><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
+			            <td><a href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+			        </tr>
+		            <%
+			            	cont+=1;
+			            }
+			        %>
+
+	    		</tbody>
 	    	</table>
-
-
 	    </div>
 
 
 	    <!-- Modal -->
-	    <div class="modal fade" id="modalUsuarios" tabindex="-1" role="dialog">
+	    <div class="modal fade" id="modalConferencias" tabindex="-1" role="dialog">
 	      <div class="modal-dialog" role="document">
 	        <div class="modal-content">
 	          <form action="MainServlet" method="post">
