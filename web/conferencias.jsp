@@ -1,5 +1,5 @@
 <%@page import="java.util.List"%>
-<%@page import="modelos.Conferencia"%>
+<%@page import="Models.Conferencia"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -50,23 +50,7 @@
 		          	</tr>
 	    		</thead>
 	    		<tbody>
-	    			<%
-		                List<Conferencia> conferencias = (List<Conferencia>) request.getAttribute("conferencia");
-		                int cont = 0;
-		                for (Conferencia c : conferencias) {
-		            %>
-		            <tr>
-			            <th scope="row"><%= cont %></th>
-			            <td><%= c.getNombre() %></td>
-			            <td><%= c.getFecha() %></td>
-			            <td><%= c.getDescripcion() %></td>
-			            <td><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
-			            <td><a href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-			        </tr>
-		            <%
-			            	cont+=1;
-			            }
-			        %>
+	    			
 
 	    		</tbody>
 	    	</table>

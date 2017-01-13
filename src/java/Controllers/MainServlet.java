@@ -44,7 +44,7 @@ public class MainServlet extends HttpServlet {
         
         //Redireccionamiento
         response.setContentType("text/html;charset=UTF-8");
-        response.sendRedirect("conferencias.html");
+        response.sendRedirect("conferencias.jsp");
     }
     
     //Funcion para crear conferencias
@@ -60,6 +60,10 @@ public class MainServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    private void deleteConferencia(HttpServletRequest req){
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
