@@ -5,35 +5,58 @@
  */
 package Models;
 
+import Controllers.MySQLAccess;
+import java.sql.*;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Administrador
  */
 public class Conferencia {
+    private int id;
     private String fecha;
     private String nombre;
     private String descripcion;
+
+    private MySQLAccess connection;
     
     public Conferencia(){
+        
     }
-    
-    public Conferencia(String nombre, String fecha, String descripcion) {
+
+    public Conferencia(int id, String fecha, String nombre, String descripcion) {
+        this.id = id;
+        this.fecha = fecha;
         this.nombre = nombre;
-        this.fecha = fecha;        
         this.descripcion = descripcion;
     }
     
-    public static List<Conferencia> getConferencia() {
-        ArrayList<Conferencia> lista = new ArrayList<>();
-        lista.add(new Conferencia("Tendencias Web", "06/06/2017", "Ultimas tendencias de la web"));
-        lista.add(new Conferencia("Seguridad de la Informacion", "12/06/2017", "Seguridad Informatica"));
-        lista.add(new Conferencia("Economia Popular", "18/06/2017", "Economia"));
-        return lista;
-    }
 
+    
+    public ArrayList<Conferencia> getConferencias(){
+        ArrayList<Conferencia> listConferencias = new ArrayList();
+        try {
+            String query = "SELECT id, nombre, fecha, descripcion FROM conferencias";
+            this.connection = new MySQLAccess();
+            connection.connection();            
+            ResultSet rs = connection.query(query);
+            while(rs.next()){
+                Conferencia conf = new Conferencia(rs.getInt("id")  ,rs.getString("fecha"), rs.getString("nombre"), rs.getString("descripcion"));
+                listConferencias.add(conf);
+            }
+            connection.closeConnection();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Conferencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listConferencias;
+    }
+    
     public String getFecha() {
         return fecha;
     }
@@ -57,5 +80,13 @@ public class Conferencia {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
         
 }

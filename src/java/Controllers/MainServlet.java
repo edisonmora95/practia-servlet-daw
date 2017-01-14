@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
+import java.util.ArrayList;
+import Models.Conferencia;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Ivan Mera
@@ -32,14 +36,26 @@ public class MainServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        /*Conferencia c = new Conferencia();
+        ArrayList<Conferencia> listaConferencias = c.getConferencias();
+        request.setAttribute("conferencias", listaConferencias);
+        request.getRequestDispatcher("conferencias.jsp").forward(request, response);
+        */
         
         //Conexion a la base de datos
         this.connection = new MySQLAccess();
         this.connection.connection();
-        
+               
         //Query para guardar el usuario en la DB
         if(request.getParameter("inputAction").compareTo("1") == 0){
             createConferencia(request);
+        }
+
+        
+        if(request.getParameter("inputAction").compareTo("2") == 0){
+            deleteConferencia(request);
+            String id = request.getParameter("id");
+            System.out.println("\n\n\n" + id + "\n\n\n");
         }
         
         //Redireccionamiento
@@ -63,8 +79,17 @@ public class MainServlet extends HttpServlet {
     }
     
     private void deleteConferencia(HttpServletRequest req){
-        
+        String id = req.getParameter("id");
+        String query = "DELETE FROM conferencias WHERE id = " + id + ";";
+        try {
+            this.connection.write(query);
+            this.connection.closeConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(MainServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+    
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
