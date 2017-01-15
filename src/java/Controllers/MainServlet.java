@@ -78,6 +78,23 @@ public class MainServlet extends HttpServlet {
         }
     }
     
+    private  ArrayList<Conferencia> readConferencia(HttpServletRequest req){
+        String q = "SELECT * FROM conferencias";
+        ArrayList<Conferencia> listConferencias = new ArrayList();
+        try{
+            this.connection.write(q);
+            ResultSet rs = connection.query(q);
+            while(rs.next()){
+                Conferencia conf = new Conferencia(rs.getInt("id")  ,rs.getString("fecha"), rs.getString("nombre"), rs.getString("descripcion"));
+                listConferencias.add(conf);
+            }
+            this.connection.closeConnection();
+        } catch (SQLException e) {
+            Logger.getLogger(Conferencia.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return listConferencias;
+    }
+    
     private void deleteConferencia(HttpServletRequest req){
         String id = req.getParameter("id");
         String query = "DELETE FROM conferencias WHERE id = " + id + ";";
