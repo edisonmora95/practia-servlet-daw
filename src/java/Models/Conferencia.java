@@ -38,11 +38,12 @@ public class Conferencia {
     
 
     
-    public ArrayList<Conferencia> getConferencias(){
+    public static ArrayList<Conferencia> getConferencias(){
         ArrayList<Conferencia> listConferencias = new ArrayList();
         try {
             String query = "SELECT id, nombre, fecha, descripcion FROM conferencias";
-            this.connection = new MySQLAccess();
+            MySQLAccess connection;
+            connection = new MySQLAccess();
             connection.connection();            
             ResultSet rs = connection.query(query);
             while(rs.next()){
