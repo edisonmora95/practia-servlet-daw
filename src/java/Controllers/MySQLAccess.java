@@ -13,10 +13,10 @@ import java.sql.*;
 public class MySQLAccess {
     //URL's de JDBC y la base de datos
     private final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private final String DB_URL = "jdbc:mysql://localhost/conferencias";
+    private final String DB_URL = "jdbc:mysql://localhost/practicaconferencias";
     //Credenciales
     private final String USER = "root";
-    private final String PASS = "5r4e3w2q1";
+    private final String PASS = "fcdtsagot";
 
     private Connection conn = null;
     private Statement stmt = null;
