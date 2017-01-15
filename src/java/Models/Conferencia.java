@@ -23,7 +23,7 @@ public class Conferencia {
     private String nombre;
     private String descripcion;
 
-    private MySQLAccess connection;
+    private static MySQLAccess connection;
     
     public Conferencia(){
         
@@ -42,7 +42,7 @@ public class Conferencia {
         ArrayList<Conferencia> listConferencias = new ArrayList();
         try {
             String query = "SELECT id, nombre, fecha, descripcion FROM conferencias";
-            MySQLAccess connection;
+            //MySQLAccess connection;
             connection = new MySQLAccess();
             connection.connection();            
             ResultSet rs = connection.query(query);

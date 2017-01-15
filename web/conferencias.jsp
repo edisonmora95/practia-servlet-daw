@@ -56,8 +56,8 @@
 	    		<tbody>
 	    		    <%
                                 Conferencia c = new Conferencia();
-                                ArrayList<Conferencia> listConferencias = (ArrayList<Conferencia>) request.getAttribute("conferencias");
-                                //ArrayList<Conferencia> listConferencias = c.getConferencias();
+                                //List<Conferencia> listConferencias = (List<Conferencia>) request.getAttribute("conferencias");
+                                ArrayList<Conferencia> listConferencias = c.getConferencias();
                                 for(Conferencia conferencia : listConferencias){
                             %>
                             <div class="modal fade" id="<%=conferencia.getId()%>" tabindex="-1" role="dialog">
