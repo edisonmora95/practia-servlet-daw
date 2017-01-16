@@ -17,7 +17,7 @@ public class MySQLAccess {
     //Credenciales
     private final String USER = "root";
     
-    private final String PASS = "";
+    private final String PASS = "fcdtsagot";
 
     private Connection conn = null;
     private Statement stmt = null;
