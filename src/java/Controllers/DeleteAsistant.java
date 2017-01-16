@@ -34,7 +34,7 @@ public class DeleteAsistant extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        String msj = null;
+        String msj;
         if (Asistente.deleteAsistente(request)){
             msj = "Se elimino exitoso";
         } else {
