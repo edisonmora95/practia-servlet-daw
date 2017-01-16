@@ -61,7 +61,7 @@ ALTER TABLE `conferencias`
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`id`);
   -- ADD KEY `id_conferencia` (`id_conferencia`);
 
 --
@@ -84,14 +84,14 @@ ALTER TABLE `conferencias`
 -- ALTER TABLE `usuarios`
 -- ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id_conferencia`) REFERENCES `conferencias` (`id`);
 
-  create table conf_asist (
-	ca_id INT(11) NOT NULL AUTO_INCREMENT,
-    conf_id INT(11) NOT NULL,
-    asist_id INT(11) NOT NULL,
-    PRIMARY KEY(ca_id),
-    CONSTRAINT FOREIGN KEY (conf_id) REFERENCES conferencias (id),
-    CONSTRAINT FOREIGN KEY (asist_id) REFERENCES usuarios (id)
-)ENGINE = InnoDB;
+CREATE TABLE `confAsist` (
+  `ca_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `conf_id` INT(50) NOT NULL,
+  `asist_id` VARCHAR(10) NOT NULL,
+  PRIMARY KEY(ca_id),
+  CONSTRAINT FOREIGN KEY (conf_id) REFERENCES conferencias (id),
+  CONSTRAINT FOREIGN KEY (asist_id) REFERENCES usuarios (id)
+) ENGINE = InnoDB;
   
   
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
