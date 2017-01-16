@@ -56,7 +56,7 @@ public class Asistente {
             
             //SELECT * FROM conf_asist ca INNER JOIN usuarios u ON ca.asist_id = u.id WHERE ca.conf_id = 1;
             
-            String query = "SELECT u.id, u.nombre, u.apellido, u.email FROM conf_asist ca INNER JOIN usuarios u ON ca.asist_id = u.id WHERE ca.conf_id = " + idConferencia +";";
+            String query = "SELECT u.id, u.nombre, u.apellido, u.email FROM confasist ca INNER JOIN usuarios u ON ca.asist_id = u.id WHERE ca.conf_id = " + idConferencia +";";
             this.connection = new MySQLAccess();
             this.connection.connection();
             //this.connection.write(query);

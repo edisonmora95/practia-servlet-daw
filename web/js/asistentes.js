@@ -27,6 +27,26 @@ $(document).ready(function(){
 			
 		}
 	});
+        
+        $.ajax({
+		type: "POST",
+		url: "conferencias",
+		success: function(json){
+			//json es el arreglo de conferencias
+			//console.log(json);
+			var arrayConferencias = json.conferencias;
+			//console.log(arrayConferencias);
+			$.each(arrayConferencias, function(i, conf){
+				var option = $('<option/>').val(conf.id).html(conf.nombre);
+				$('#inputConferenciaId').append(option);
+                                //$('#inputConferenciaId').append(option);
+				//console.log(json);
+				//var texto = "El id es: " + conf.id + " y el nombre es: " + conf.nombre;
+				//console.log(texto);
+			});
+			
+		}
+	});
 
 	$('#conferencias').on('change', function(){
 		$('#tbody').empty();
