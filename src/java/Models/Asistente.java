@@ -63,7 +63,7 @@ public class Asistente {
             ResultSet rs = connection.query(query);
             while(rs.next()){
                 //Conferencia conf = new Conferencia(rs.getInt("id")  ,rs.getString("fecha"), rs.getString("nombre"), rs.getString("descripcion"));
-                Asistente asistente = new Asistente(Integer.toString(rs.getInt("u.id")), rs.getString("u.nombre"), rs.getString("u.apellido"), rs.getString("u.email"));
+                Asistente asistente = new Asistente(rs.getString("u.id"), rs.getString("u.nombre"), rs.getString("u.apellido"), rs.getString("u.email"));
                 listaAsistentes.add(asistente);
                 //listaAsistentes.add(conf);
             }
