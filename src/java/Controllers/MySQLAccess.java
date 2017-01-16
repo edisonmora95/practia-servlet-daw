@@ -16,7 +16,7 @@ public class MySQLAccess {
     private final String DB_URL = "jdbc:mysql://localhost/practicaconferencias";
     //Credenciales
     private final String USER = "root";
-    private final String PASS = "fcdtsagot";
+    private final String PASS = "";
 
     private Connection conn = null;
     private Statement stmt = null;
