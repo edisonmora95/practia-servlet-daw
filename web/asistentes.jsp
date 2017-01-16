@@ -53,7 +53,7 @@
 
           <div class="asistentes">
             <h2>Personas que asistieron</h2>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#">Añadir nueva</button>  
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAsistentes">Añadir nuevo</button>  
                     <!--<form action="MainServlet" method="post">-->
             <table id="tabla-asistentes" class="table table-bordered table-striped" action="#" method="POST">
               <thead>
@@ -71,6 +71,42 @@
               </tbody>
             </table>
           </div>
+          
+          <!-- Modal -->
+	    <div class="modal fade" id="modalAsistentes" tabindex="-1" role="dialog">
+	      <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	          <form action="CreateAsistant" method="post">
+	            <div class="modal-header">
+	              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	              <h4 class="modal-title">Ingresar Asistente</h4>
+	            </div>
+	            <div class="modal-body">
+	                <div class="form-group">
+	                  <input type="text" class="form-control" id="inputAsistantId" name="inputAsistantId" placeholder="Nº de Cédula">
+	                </div>
+                        <div class="form-group">
+	                  <input type="text" class="form-control" id="inputAsistantName" name="inputAsistantName" placeholder="Nombre">
+	                </div>
+                        <div class="form-group">
+	                  <input type="text" class="form-control" id="inputAsistantLast" name="inputAsistantLast" placeholder="Apellido">
+	                </div>
+                        <div class="form-group">
+	                  <input type="email" class="form-control" id="inputAsistantEmail" name="inputAsistantEmail" placeholder="Correo Electrónico">
+	                </div>
+                        <div class="form-group">
+                            <select name="inputConferenciaId" id="inputConferenciaId"></select>
+	                </div>
+                        <input type="hidden" id="inputAction" name="inputAction">
+	            </div>
+	            <div class="modal-footer">
+	              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+	              <button type="submit" class="btn btn-primary">Registrar</button>
+	            </div>
+	          </form>
+	        </div>
+	      </div>
+	    </div>
 
         </div>
 
