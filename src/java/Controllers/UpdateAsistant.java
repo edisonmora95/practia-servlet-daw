@@ -7,11 +7,16 @@ package Controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 
 /**
  *
@@ -19,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "UpdateConference", urlPatterns = {"/UpdateConference"})
 public class UpdateAsistant extends HttpServlet {
-
+private MySQLAccess connection;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,18 +36,42 @@ public class UpdateAsistant extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UpdateConference</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UpdateConference at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        response.setContentType("application/json");
+        
+        this.connection = new MySQLAccess();
+        this.connection.connection();
+        
+        this.updateAsistente(request);
+        
+        JsonObject json = getConfirmation();
+        PrintWriter writer = response.getWriter();
+        writer.print(json);
+    }
+    
+    public JsonObject getConfirmation(){
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        JsonObject confirmationJson = builder.add("Result", 1).build();
+        return confirmationJson;
+    }
+    
+    private void updateAsistente(HttpServletRequest req){
+        String id = req.getParameter("inputAsistantId");
+        String name = req.getParameter("inputAsistantName");
+        String last = req.getParameter("inputAsistantLast");
+        String email = req.getParameter("inputAsistantEmail");
+        try {
+            this.connection.write(
+                    "UPDATE usuarios " +
+                    "SET nombre = '" + name + "'," +
+                    " apellido = '" + last + "'," +
+                    " email = '" + email + "'" +
+                    "WHERE id = '" + id + "';"
+            );            
+            this.connection.closeConnection();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
