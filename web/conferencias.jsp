@@ -27,8 +27,8 @@
 	        </div>
 	        <div id="navbar" class="collapse navbar-collapse">
 	          <ul class="nav navbar-nav">
-	            <li class="active"><a href="index.html">Inicio</a></li>
-	            <li><a href="conferencias.jsp">Conferencia</a></li>
+	            <li><a href="index.html">Inicio</a></li>
+	            <li class="active"><a href="conferencias.jsp">Conferencia</a></li>
 	            <li><a href="asistentes.jsp">Asistentes</a></li>
 	          </ul>
 	          <ul class="nav navbar-nav navbar-right">
@@ -78,13 +78,50 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            <!-- Modal Actualizar -->
+                            <div class="modal fade" id="0<%=conferencia.getId()%>" tabindex="-1" role="dialog">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <form action="MainServlet" method="post">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                      </button>
+                                      <h4 class="modal-title">Actualizar Conferencia</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                          <input type="text" class="form-control" id="inputNombreConferencia" 
+                                                 name="inputNombreConferencia" value="<%= conferencia.getNombre()%>">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="date" name="inputDateConferencia" value="<%=conferencia.getFecha()%>">
+                                        </div>
+                                        <div class="form-group">
+                                          <input type="text" class="form-control" id="inputDescConferencia" 
+                                                 name="inputDescConferencia" value="<%=conferencia.getDescripcion()%>">
+                                        </div>
+                                        <input type="hidden" name="idConf" value="<%=conferencia.getId()%>">                                        
+                                        <input type="hidden" id="inputAction" name="inputAction" value="3">
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                      <button type="submit" class="btn btn-primary">Actualizar</button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>                   
+                            
                             <tr>
                                 <td><%= conferencia.getNombre()%></td>
                                 <td><%= conferencia.getFecha()%></td>
                                 <td><%= conferencia.getDescripcion()%></td>
-                                <td><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
+                                <td><a href="#" data-toggle="modal" data-target="#0<%=conferencia.getId()%>"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
                                 <td><a href="#" data-toggle="modal" data-target="#<%=conferencia.getId()%>"><span class="glyphicon glyphicon-remove" aria-hidden="true" ></span></a></td>
-                                <input type="hidden" name="id" value="<%=conferencia.getId()%>">
+                                <!-- <input type="hidden" name="id" value="<%=conferencia.getId()%>"> -->
                             </tr>
                             <% } %>
 	    		</tbody>
@@ -123,6 +160,9 @@
 	        </div>
 	      </div>
 	    </div>
+            
+            
+            
 
 	    <!--SCRIPTS-->
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
