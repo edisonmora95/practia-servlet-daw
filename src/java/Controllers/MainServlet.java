@@ -58,6 +58,12 @@ public class MainServlet extends HttpServlet {
             System.out.println("\n\n\n" + id + "\n\n\n");
         }
         
+        if(request.getParameter("inputAction").compareTo("3") == 0){
+            updateConferencia(request);
+            String id = request.getParameter("id");
+            System.out.println("\n\n\n" + id + "\n\n\n");
+        }
+        
         //Redireccionamiento
         response.setContentType("text/html;charset=UTF-8");
         response.sendRedirect("conferencias.jsp");
@@ -94,7 +100,7 @@ public class MainServlet extends HttpServlet {
         }
         return listConferencias;
     }
-    
+       
     private void deleteConferencia(HttpServletRequest req){
         String id = req.getParameter("id");
         String query = "DELETE FROM conferencias WHERE id = " + id + ";";
@@ -106,7 +112,28 @@ public class MainServlet extends HttpServlet {
         }
     }
     
-
+    private void updateConferencia(HttpServletRequest req){
+        String id = req.getParameter("idConf");
+        String nombre = req.getParameter("inputNombreConferencia");
+        String fecha = req.getParameter("inputDateConferencia");
+        String desc = req.getParameter("inputDescConferencia");
+        
+        try {
+            this.connection.write(
+                    "UPDATE conferencias " +
+                    "SET nombre = '" + nombre + "'," +
+                    " descripcion = '" + desc + "'," +
+                    " fecha = '" + fecha + "'" +
+                    "WHERE id = " + id + ";"
+            );
+            this.connection.closeConnection();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
