@@ -62,7 +62,22 @@ $(document).ready(function(){
 				//console.log(json);
 				$.each(json.asistentes, function(idex, asistente){
 					console.log(asistente);
-					
+					var container = $('<div>', {class: 'modal fade', id: asistente.cedula, tabindex: '-1', role: 'dialog'});
+                                        var modalDialog = $('<div>', {class: 'modal-dialog modal-sm', role: 'document'});
+                                        var modalContent = $('<div>', {class: 'modal-content'});
+                                        var form = $('<form>', {action: 'AsistentesServlet', method: 'post'});
+                                        var modalBody = $('<div>', {class: 'modal-body'});
+                                        var msg = $('<p>').html('Seguro que desea eliminar al asistente: ' + asistente.nombre);
+                                        var value = $('<input>', {type: 'hidden', name: 'id', value: asistente.cedula});
+                                        var modalFooter = $('<div>', {class: 'modal-footer'});
+                                        modalFooter.html("<button class='btn btn-danger' type='submit' name='id' >OK</button><button class='btn' data-dismiss='modal'>Cancelar</button>");
+                                        modalBody.append(msg).append(value);
+                                        form.append(modalBody).append(modalFooter);
+                                        modalContent.append(form);
+                                        modalDialog.append(modalContent);
+                                        container.append(modalDialog);
+                                        $('#pageContent').append(container);
+                                        
 					var trow = $('<tr/>');
 					var tdCedula = $('<td/>').text(asistente.cedula);
 					var tdNombre = $('<td/>').text(asistente.nombre);
@@ -81,12 +96,15 @@ $(document).ready(function(){
 					tdEditar.append(aEditar);
 
 					//MODIFICAR ESTO PARA LA FUNCION ELIMINAR
-					var aEliminar = $('<a/>').attr({"href" : "#"});
+					var aEliminar = $('<a/>').attr({
+                                                "href" : "#",
+                                                "data-toggle": "modal",
+                                                "data-target": "#" + asistente.cedula
+                                        });
 					var spanEliminar = $('<span/>').attr({
 						"class" : "glyphicon glyphicon-remove",
 						"aria-hidden" : "true"
-						//ANADIR AQUI LO QUE HACE FALTA PARA CREAR EL MODAL DE ELIMINAR
-					})
+					});
 					var tdEliminar = $('<td/>');
 					aEliminar.append(spanEliminar);
 					tdEliminar.append(aEliminar);
