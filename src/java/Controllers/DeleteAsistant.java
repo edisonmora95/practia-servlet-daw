@@ -36,11 +36,14 @@ public class DeleteAsistant extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String msj = null;
         if (Asistente.deleteAsistente(request)){
-            msj = "borrado exitoso";
+            msj = "Se elimino exitoso";
         } else {
-            msj="borrado fallido";
+            msj="falla al eliminar";
         }
-        String json = new Gson()
+        String json = new Gson().toJson("mensaje"+msj);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
