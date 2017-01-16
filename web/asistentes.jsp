@@ -15,6 +15,7 @@
         <title>Espol asistentes</title>
     </head>
     <body>
+        <!--NAVBAR-->
         <nav class="navbar navbar-inverse navbar-static-top">
           <div class="container">
             <div class="navbar-header">
@@ -39,14 +40,44 @@
             </div><!--/.nav-collapse -->
           </div>
         </nav>
-
+        <!--FIN DE NAVBAR-->
         <div class="container asistentes">
-            
+          <h1>Asistentes</h1>
+          <p>Seleccione la conferencia que desee buscar</p>
+          <div class="dropdown">
+
+            <select name="conferencias" id="conferencias">
+              <option value="" disabled selected hidden>Select your option</option>
+            </select>
+          </div>
+
+          <div class="asistentes">
+            <h2>Personas que asistieron</h2>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#">Añadir nueva</button>  
+                    <!--<form action="MainServlet" method="post">-->
+            <table id="tabla-asistentes" class="table table-bordered table-striped" action="#" method="POST">
+              <thead>
+                <tr>
+                  <th>Cedula</th>
+                  <th>Nombre</th>
+                  <th>Apellido</th>
+                  <th>Correo</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              </tbody>
+            </table>
+          </div>
+
         </div>
 
         <!--SCRIPTS-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.12/datatables.min.js"></script>
+        <script type="text/javascript" src="js/asistentes.js"></script>
     </body>
 </html>

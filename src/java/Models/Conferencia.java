@@ -6,12 +6,19 @@
 package Models;
 
 import Controllers.MySQLAccess;
+import com.google.gson.Gson;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import org.apache.jasper.tagplugins.jstl.ForEach;
 
 /**
  *
@@ -56,6 +63,32 @@ public class Conferencia {
         }
         return listConferencias;
     }
+    
+    public JsonObject getConferenciasJson(){
+        //Obtengo el ArrayList contodas las conferencias de la base de datos
+        Conferencia c = new Conferencia();
+        ArrayList<Conferencia> listaConferencias = c.getConferencias();
+        //Comienzo a crear el JsonObject
+        JsonObjectBuilder rootBuilder = Json.createObjectBuilder();
+        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+        
+        for(Conferencia conferencia : listaConferencias){
+            //Crea un JsonObject por cada conferencia
+            JsonObjectBuilder conferenciaBuilder = Json.createObjectBuilder();
+            JsonObject conferenciaJson = conferenciaBuilder.add("id", conferencia.getId())
+                    .add("nombre", conferencia.getNombre() != null ? conferencia.getNombre() : "")
+                    .add("fecha", conferencia.getFecha()!= null ? conferencia.getFecha() : "")
+                    .add("descripcion", conferencia.getDescripcion()!= null ? conferencia.getDescripcion() : "")
+                    .build();
+            
+            //Agrego cada planta al array
+            arrayBuilder.add(conferenciaJson);
+        }
+        //Añade el array de JsonObject a un JsonObject
+        JsonObject conferencias = rootBuilder.add("conferencias", arrayBuilder).build();
+        return conferencias;
+    }
+    
     
     public String getFecha() {
         return fecha;
