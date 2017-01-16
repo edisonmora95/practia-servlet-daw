@@ -43,8 +43,8 @@ CREATE TABLE `usuarios` (
   `id` varchar(10) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellido` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `id_conferencia` int(50) NOT NULL
+  `email` varchar(50) NOT NULL
+  -- `id_conferencia` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -62,7 +62,7 @@ ALTER TABLE `conferencias`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_conferencia` (`id_conferencia`);
+  -- ADD KEY `id_conferencia` (`id_conferencia`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -80,9 +80,20 @@ ALTER TABLE `conferencias`
 --
 -- Filtros para la tabla `usuarios`
 --
-ALTER TABLE `usuarios`
-  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id_conferencia`) REFERENCES `conferencias` (`id`);
+--
+-- ALTER TABLE `usuarios`
+-- ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id_conferencia`) REFERENCES `conferencias` (`id`);
 
+  create table conf_asist (
+	ca_id INT(11) NOT NULL AUTO_INCREMENT,
+    conf_id INT(11) NOT NULL,
+    asist_id INT(11) NOT NULL,
+    PRIMARY KEY(ca_id),
+    CONSTRAINT FOREIGN KEY (conf_id) REFERENCES conferencias (id),
+    CONSTRAINT FOREIGN KEY (asist_id) REFERENCES usuarios (id)
+)ENGINE = InnoDB;
+  
+  
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
