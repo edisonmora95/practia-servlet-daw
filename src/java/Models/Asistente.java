@@ -51,8 +51,13 @@ public class Asistente {
         ArrayList<Asistente> listaAsistentes = new ArrayList<Asistente>();
         try {
             int id = Integer.parseInt(idConferencia);
-            String query = "SELECT u.id, u.nombre, u.apellido, u.email FROM conf_asist ca, conferencias c, usuarios u WHERE ca_id = " + idConferencia + ";";
+            
+            //SELECT * FROM conf_asist ca INNER JOIN usuarios u ON ca.asist_id = u.id WHERE ca.conf_id = 1;
+            
+            String query = "SELECT u.id, u.nombre, u.apellido, u.email FROM conf_asist ca INNER JOIN usuarios u ON ca.asist_id = u.id WHERE ca.conf_id = " + idConferencia +";";
             this.connection = new MySQLAccess();
+            this.connection.connection();
+            //this.connection.write(query);
             ResultSet rs = connection.query(query);
             while(rs.next()){
                 //Conferencia conf = new Conferencia(rs.getInt("id")  ,rs.getString("fecha"), rs.getString("nombre"), rs.getString("descripcion"));

@@ -7,19 +7,24 @@ package Controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 
 /**
  *
  * @author chini
  */
-@WebServlet(name = "CreateConference", urlPatterns = {"/CreateConference"})
+@WebServlet(name = "CreateAsistant", urlPatterns = {"/CreateAsistant"})
 public class CreateAsistant extends HttpServlet {
-
+    private MySQLAccess connection;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,18 +36,38 @@ public class CreateAsistant extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CreateConference</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CreateConference at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        response.setContentType("application/json");
+        
+        this.connection = new MySQLAccess();
+        this.connection.connection();
+        
+        this.createAsistant(request);
+        
+        JsonObject json = getConfirmation();
+        PrintWriter writer = response.getWriter();
+        writer.print(json);
+    }
+    
+    public JsonObject getConfirmation(){
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        JsonObject confirmationJson = builder.add("Result", 1).build();
+        return confirmationJson;
+    }
+    
+    private void createAsistant(HttpServletRequest req){
+        String id = req.getParameter("inputAsistantId");
+        String name = req.getParameter("inputAsistantName");
+        String last = req.getParameter("inputAsistantLast");
+        String email = req.getParameter("inputAsistantEmail");
+        String confId = req.getParameter("inputConferenciaId");
+        try {
+            this.connection.write("INSERT INTO usuarios (id,nombre,apellido,email) VALUES ('" + id + "','" + name + "','" + last + "','" + email + "');");
+            this.connection.write("INSERT INTO confasist (conf_id,asist_id) VALUES ('" + confId + "','" + id + "');");
+            this.connection.closeConnection();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
