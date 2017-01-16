@@ -25,6 +25,7 @@ import javax.json.JsonObjectBuilder;
 @WebServlet(name = "CreateAsistant", urlPatterns = {"/CreateAsistant"})
 public class CreateAsistant extends HttpServlet {
     private MySQLAccess connection;
+    private int lastWrite;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,7 +41,6 @@ public class CreateAsistant extends HttpServlet {
         
         this.connection = new MySQLAccess();
         this.connection.connection();
-        
         this.createAsistant(request);
         
         JsonObject json = getConfirmation();
@@ -54,7 +54,7 @@ public class CreateAsistant extends HttpServlet {
         return confirmationJson;
     }
     
-    private void createAsistant(HttpServletRequest req){
+    private boolean createAsistant(HttpServletRequest req){
         String id = req.getParameter("inputAsistantId");
         String name = req.getParameter("inputAsistantName");
         String last = req.getParameter("inputAsistantLast");
@@ -64,10 +64,13 @@ public class CreateAsistant extends HttpServlet {
             this.connection.write("INSERT INTO usuarios (id,nombre,apellido,email) VALUES ('" + id + "','" + name + "','" + last + "','" + email + "');");
             this.connection.write("INSERT INTO confasist (conf_id,asist_id) VALUES ('" + confId + "','" + id + "');");
             this.connection.closeConnection();
+            return true;
         } catch (SQLException se) {
             se.printStackTrace();
+            return false;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 

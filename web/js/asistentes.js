@@ -7,7 +7,6 @@
 /*
 json = [conf1 = {"id" : "1", "nombre" : "conferencia1" }, ]
 */
-
 $(document).ready(function(){
 	$.ajax({
 		type: "POST",
@@ -20,7 +19,25 @@ $(document).ready(function(){
 			$.each(arrayConferencias, function(i, conf){
 				var option = $('<option/>').val(conf.id).html(conf.nombre);
 				$('#conferencias').append(option);
-                                $('#inputConferenciaId').append(option);
+				//console.log(json);
+				//var texto = "El id es: " + conf.id + " y el nombre es: " + conf.nombre;
+				//console.log(texto);
+			});
+			
+		}
+	});
+        
+        $.ajax({
+		type: "POST",
+		url: "conferencias",
+		success: function(json){
+			//json es el arreglo de conferencias
+			//console.log(json);
+			var arrayConferencias = json.conferencias;
+			//console.log(arrayConferencias);
+			$.each(arrayConferencias, function(i, conf){
+				var option = $('<option/>').val(conf.id).html(conf.nombre);
+				$('#inputConferenciaId').append(option);
 				//console.log(json);
 				//var texto = "El id es: " + conf.id + " y el nombre es: " + conf.nombre;
 				//console.log(texto);
@@ -77,11 +94,31 @@ $(document).ready(function(){
 				})
 			}
 		});
-
-
-
-
 	});
+});
 
-
+$("#asistantFormSubmit").on("click", function(){
+    $.post("CreateAsistant",
+    {
+        inputAsistantId: $("#asistantForm #inputAsistantId").val(),
+        inputAsistantName: $("#asistantForm #inputAsistantName").val(),
+        inputAsistantLast: $("#asistantForm #inputAsistantLast").val(),
+        inputAsistantEmail: $("#asistantForm #inputAsistantEmail").val(),
+        inputConferenciaId: $("#asistantForm #inputConferenciaId").val()
+    },
+    function(data, status){
+        if(status === "success"){
+            $("#asistantForm #inputAsistantId").val("");
+            $("#asistantForm #inputAsistantName").val("");
+            $("#asistantForm #inputAsistantLast").val("");
+            $("#asistantForm #inputAsistantEmail").val("");
+            $("#asistantForm #inputConferenciaId").val("");
+            $("#modalAsistentes").modal('hide');
+            var alertContainer = ($("<div>", {class: "alert alert-success alert-dismissible fade in", role: "alert"}));
+            alertContainer.html('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Asistente guardado con éxito');
+            $("#pageContent").append(alertContainer);
+        }else{
+            alert("Hubo un problema al momento de guardar");
+        }
+    });
 });

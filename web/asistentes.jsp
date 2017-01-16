@@ -41,7 +41,7 @@
           </div>
         </nav>
         <!--FIN DE NAVBAR-->
-        <div class="container asistentes">
+        <div id="pageContent" class="container asistentes">
           <h1>Asistentes</h1>
           <p>Seleccione la conferencia que desee buscar</p>
           <div class="dropdown">
@@ -76,7 +76,7 @@
 	    <div class="modal fade" id="modalAsistentes" tabindex="-1" role="dialog">
 	      <div class="modal-dialog" role="document">
 	        <div class="modal-content">
-	          <form action="CreateAsistant" method="post">
+	          <form id="asistantForm" action="CreateAsistant" method="post">
 	            <div class="modal-header">
 	              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	              <h4 class="modal-title">Ingresar Asistente</h4>
@@ -97,19 +97,17 @@
                         <div class="form-group">
                             <select name="inputConferenciaId" id="inputConferenciaId"></select>
 	                </div>
-                        <input type="hidden" id="inputAction" name="inputAction">
 	            </div>
 	            <div class="modal-footer">
 	              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-	              <button type="submit" class="btn btn-primary">Registrar</button>
+	              <button id="asistantFormSubmit" type="button" class="btn btn-primary">Registrar</button>
 	            </div>
 	          </form>
 	        </div>
 	      </div>
 	    </div>
-
         </div>
-
+        
         <!--SCRIPTS-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
