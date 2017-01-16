@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author chini
  */
 @WebServlet(name = "UpdateConference", urlPatterns = {"/UpdateConference"})
-public class UpdateConference extends HttpServlet {
+public class UpdateAsistant extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

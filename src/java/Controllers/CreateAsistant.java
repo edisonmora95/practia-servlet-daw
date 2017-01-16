@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author chini
  */
-@WebServlet(name = "ReadConference", urlPatterns = {"/ReadConference"})
-public class ReadConference extends HttpServlet {
+@WebServlet(name = "CreateConference", urlPatterns = {"/CreateConference"})
+public class CreateAsistant extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +37,10 @@ public class ReadConference extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ReadConference</title>");            
+            out.println("<title>Servlet CreateConference</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ReadConference at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CreateConference at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
