@@ -13,7 +13,7 @@ import java.sql.*;
 public class MySQLAccess {
     //URL's de JDBC y la base de datos
     private final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private final String DB_URL = "jdbc:mysql://localhost/conferencias";
+    private final String DB_URL = "jdbc:mysql://localhost/practicaconferencias";
     //Credenciales
     private final String USER = "root";
     
