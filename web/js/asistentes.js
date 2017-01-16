@@ -20,7 +20,7 @@ $(document).ready(function(){
 			$.each(arrayConferencias, function(i, conf){
 				var option = $('<option/>').val(conf.id).html(conf.nombre);
 				$('#conferencias').append(option);
-                                $('#inputConferenciaId').append(option);
+                                //$('#inputConferenciaId').append(option);
 				//console.log(json);
 				//var texto = "El id es: " + conf.id + " y el nombre es: " + conf.nombre;
 				//console.log(texto);

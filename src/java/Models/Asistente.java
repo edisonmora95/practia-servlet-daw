@@ -5,6 +5,7 @@
  */
 package Models;
 
+import Controllers.MainServlet;
 import Controllers.MySQLAccess;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,6 +17,7 @@ import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -28,7 +30,7 @@ public class Asistente {
     //private int confer;
     private String correo;
     
-    private MySQLAccess connection;
+    private static MySQLAccess connection;
     
     public Asistente(){
     }
@@ -95,6 +97,22 @@ public class Asistente {
         //Añade el array de JsonObject a un JsonObject
         JsonObject asistentes = rootBuilder.add("asistentes", arrayBuilder).build();
         return asistentes;
+    }
+    
+    public static boolean deleteAsistente(HttpServletRequest req){
+        try {
+            String id = req.getParameter("id");
+            String query = "DELETE FROM usuarios WHERE id=" + id + ";";
+            connection = new MySQLAccess();
+            connection.connection();
+        
+            connection.write(query);
+            connection.closeConnection();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(MainServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
     
     public String getCedula() {
