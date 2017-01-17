@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author chini
  */
-@WebServlet(name = "DeleteConference", urlPatterns = {"/DeleteConference"})
+@WebServlet(name = "DeleteAsistant", urlPatterns = {"/DeleteAsistant"})
 public class DeleteAsistant extends HttpServlet {
 
     /**

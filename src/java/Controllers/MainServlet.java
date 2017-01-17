@@ -124,7 +124,7 @@ public class MainServlet extends HttpServlet {
                     "SET nombre = '" + nombre + "'," +
                     " descripcion = '" + desc + "'," +
                     " fecha = '" + fecha + "'" +
-                    "WHERE id = " + id + ";"
+                    " WHERE id = " + id + ";"
             );
             this.connection.closeConnection();
         } catch (SQLException se) {

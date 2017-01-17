@@ -5,6 +5,8 @@
  */
 package Controllers;
 
+import Models.Asistente;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -22,7 +24,7 @@ import javax.json.JsonObjectBuilder;
  *
  * @author chini
  */
-@WebServlet(name = "UpdateConference", urlPatterns = {"/UpdateConference"})
+@WebServlet(name = "UpdateAsistant", urlPatterns = {"/UpdateAsistant"})
 public class UpdateAsistant extends HttpServlet {
 private MySQLAccess connection;
     /**
@@ -36,7 +38,7 @@ private MySQLAccess connection;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json");
+        /*response.setContentType("application/json");
         
         this.connection = new MySQLAccess();
         this.connection.connection();
@@ -45,7 +47,18 @@ private MySQLAccess connection;
         
         JsonObject json = getConfirmation();
         PrintWriter writer = response.getWriter();
-        writer.print(json);
+        writer.print(json);*/
+        response.setContentType("text/html;charset=UTF-8");
+        String msj;
+        if (Asistente.updateAsistente(request)){
+            msj = "Se modifico el registro.";
+        } else {
+            msj = "Error al modificar.";
+        }
+        String json = new Gson().toJson("Mensaje: "+msj);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
     }
     
     public JsonObject getConfirmation(){
@@ -55,18 +68,19 @@ private MySQLAccess connection;
     }
     
     private void updateAsistente(HttpServletRequest req){
-        String id = req.getParameter("inputAsistantId");
+        String id = req.getParameter("id");
         String name = req.getParameter("inputAsistantName");
         String last = req.getParameter("inputAsistantLast");
         String email = req.getParameter("inputAsistantEmail");
-        try {
-            this.connection.write(
-                    "UPDATE usuarios " +
-                    "SET nombre = '" + name + "'," +
+        
+        String query = "UPDATE usuarios" +
+                    " SET nombre = '" + name + "'," +
                     " apellido = '" + last + "'," +
                     " email = '" + email + "'" +
-                    "WHERE id = '" + id + "';"
-            );            
+                    " WHERE id = '" + id + "';";
+        
+        try {
+            this.connection.write(query);            
             this.connection.closeConnection();
         } catch (SQLException se) {
             se.printStackTrace();

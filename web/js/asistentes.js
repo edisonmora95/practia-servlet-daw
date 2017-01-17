@@ -65,13 +65,45 @@ $(document).ready(function(){
 					var container = $('<div>', {class: 'modal fade', id: asistente.cedula, tabindex: '-1', role: 'dialog'});
                                         var modalDialog = $('<div>', {class: 'modal-dialog modal-sm', role: 'document'});
                                         var modalContent = $('<div>', {class: 'modal-content'});
-                                        var form = $('<form>', {action: 'AsistentesServlet', method: 'post'});
+                                        var form = $('<form>', {action: 'DeleteAsistant', method: 'post'});
                                         var modalBody = $('<div>', {class: 'modal-body'});
                                         var msg = $('<p>').html('Seguro que desea eliminar al asistente: ' + asistente.nombre);
                                         var value = $('<input>', {type: 'hidden', name: 'id', value: asistente.cedula});
                                         var modalFooter = $('<div>', {class: 'modal-footer'});
                                         modalFooter.html("<button class='btn btn-danger' type='submit' name='id' >OK</button><button class='btn' data-dismiss='modal'>Cancelar</button>");
                                         modalBody.append(msg).append(value);
+                                        form.append(modalBody).append(modalFooter);
+                                        modalContent.append(form);
+                                        modalDialog.append(modalContent);
+                                        container.append(modalDialog);
+                                        $('#pageContent').append(container);
+                                        
+                                        // modal actualizar
+                                        var container = $('<div>', {class: 'modal fade', id: 'C'+asistente.cedula, tabindex: '-1', role: 'dialog'});
+                                        var modalDialog = $('<div>', {class: 'modal-dialog modal-sm', role: 'document'});
+                                        var modalContent = $('<div>', {class: 'modal-content'});
+                                        var form = $('<form>', {action: 'UpdateAsistant', method: 'post'});
+                                        var modalBody = $('<div>', {class: 'modal-body'});
+                                        
+                                        var value = $('<input>', {type: 'text', name: 'id', value: asistente.cedula});
+                                        
+                                        var txt1 = $('<div>', {class: 'form-group'});
+                                        var value1 = $('<input>', {type: 'text', class: 'form-control', id:'inputAsistantName', 
+                                                                    name:'inputAsistantName', value: asistente.nombre});
+                                        var txt2 = $('<div>', {class: 'form-group'});
+                                        var value2 = $('<input>', {type: 'text', class: 'form-control', id:'inputAsistantLast', 
+                                                                    name:'inputAsistantLast', value: asistente.apellido});
+                                        var txt3 = $('<div>', {class: 'form-group'});
+                                        var value3 = $('<input>', {type: 'email', class: 'form-control', id:'inputAsistantEmail', 
+                                                                    name:'inputAsistantEmail', value: asistente.correo});                                                                             
+                                  
+                                        var modalFooter = $('<div>', {class: 'modal-footer'});
+                                        modalFooter.html("<button class='btn btn-danger' type='submit' name='id' >Actualizar</button><button class='btn' data-dismiss='modal'>Cancelar</button>");
+                                        //modalBody.append(msg).append(value);
+                                        modalBody.append(value);
+                                        modalBody.append(txt1).append(value1);
+                                        modalBody.append(txt2).append(value2);
+                                        modalBody.append(txt3).append(value3);
                                         form.append(modalBody).append(modalFooter);
                                         modalContent.append(form);
                                         modalDialog.append(modalContent);
@@ -85,7 +117,11 @@ $(document).ready(function(){
 					var tdCorreo = $('<td/>').text(asistente.correo);
 					
 					//MODIFICAR ESTO PARA LA FUNCION EDITAR
-					var aEditar = $('<a/>').attr({"href" : "#"});
+					var aEditar = $('<a/>').attr({
+                                                "href" : "#",
+                                                "data-toggle": "modal",
+                                                "data-target": "#C" + asistente.cedula
+                                        });
 					var spanEditar = $('<span/>').attr({
 						"class" : "glyphicon glyphicon-edit",
 						"aria-hidden" : "true"

@@ -56,14 +56,21 @@ public class Asistente {
             
             //SELECT * FROM conf_asist ca INNER JOIN usuarios u ON ca.asist_id = u.id WHERE ca.conf_id = 1;
             
-            String query = "SELECT u.id, u.nombre, u.apellido, u.email FROM confasist ca INNER JOIN usuarios u ON ca.asist_id = u.id WHERE ca.conf_id = " + idConferencia +";";
+            String query = "SELECT u.id, u.nombre, u.apellido, u.email "
+                    + "FROM confasist ca "
+                    + "INNER JOIN usuarios u ON ca.asist_id = u.id "
+                    + "WHERE ca.conf_id = " + idConferencia +";";
             this.connection = new MySQLAccess();
             this.connection.connection();
             //this.connection.write(query);
             ResultSet rs = connection.query(query);
             while(rs.next()){
                 //Conferencia conf = new Conferencia(rs.getInt("id")  ,rs.getString("fecha"), rs.getString("nombre"), rs.getString("descripcion"));
-                Asistente asistente = new Asistente(rs.getString("u.id"), rs.getString("u.nombre"), rs.getString("u.apellido"), rs.getString("u.email"));
+                Asistente asistente = 
+                        new Asistente(
+                                rs.getString("id"), rs.getString("nombre"), 
+                                rs.getString("apellido"), rs.getString("email")
+                        );
                 listaAsistentes.add(asistente);
                 //listaAsistentes.add(conf);
             }
@@ -111,6 +118,32 @@ public class Asistente {
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(MainServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public static boolean updateAsistente(HttpServletRequest req){
+        String id = req.getParameter("id");
+        String nombre = req.getParameter("inputAsistantName");
+        String apellido = req.getParameter("inputAsistantLast");
+        String mail = req.getParameter("inputAsistantEmail");        
+        
+        String query = "UPDATE usuarios" +
+                    " SET nombre = '" + nombre + "'," +
+                    " apellido = '" + apellido + "'," +
+                    " email = '" + mail + "'" +
+                    " WHERE id = '" + id + "';";
+        try {
+            //connection = new MySQLAccess();
+            connection.connection();
+            connection.write(query);
+            connection.closeConnection();
+            return true;
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return false;
     }
