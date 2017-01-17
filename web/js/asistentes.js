@@ -140,7 +140,8 @@ $(document).ready(function(){
                                         });
 					var spanEliminar = $('<span/>').attr({
 						"class" : "glyphicon glyphicon-remove",
-						"aria-hidden" : "true"
+						"aria-hidden" : "true",
+                                                "id": "editBt"
 					});
 					var tdEliminar = $('<td/>');
 					aEliminar.append(spanEliminar);
@@ -176,6 +177,21 @@ $("#asistantFormSubmit").on("click", function(){
             $("#pageContent").append(alertContainer);
         }else{
             alert("Hubo un problema al momento de guardar");
+        }
+    });
+});
+
+$("#editBt").on("click", function(){
+    $.post("DeleteAsistant",
+    {
+    },
+    function(data, status){
+        if(status === "success"){
+            var alertContainer = ($("<div>", {class: "alert alert-success alert-dismissible fade in", role: "alert"}));
+            alertContainer.html('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Asistente borrado con éxito');
+            $("#pageContent").append(alertContainer);
+        }else{
+            alert("Hubo un problema al eliminar");
         }
     });
 });
