@@ -83,6 +83,7 @@ $(document).ready(function(){
 					var tdNombre = $('<td/>').text(asistente.nombre);
 					var tdApellido = $('<td/>').text(asistente.apellido);
 					var tdCorreo = $('<td/>').text(asistente.correo);
+                                        var aux = $('<input/>').attr({ "type" : "hidden", "value" : id, "class" : "conf_id"});
 					
 					//MODIFICAR ESTO PARA LA FUNCION EDITAR
 					var aEditar = $('<a/>').attr({"href" : "#"});
@@ -109,7 +110,7 @@ $(document).ready(function(){
 					aEliminar.append(spanEliminar);
 					tdEliminar.append(aEliminar);
 
-					trow.append(tdCedula, tdNombre, tdApellido, tdCorreo, tdEditar, tdEliminar);
+					trow.append(tdCedula, tdNombre, tdApellido, tdCorreo, tdEditar, tdEliminar, aux);
 					$('#tbody').append(trow);
 				})
 			}
