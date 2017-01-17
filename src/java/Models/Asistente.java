@@ -105,11 +105,12 @@ public class Asistente {
     
     public static boolean deleteAsistente(HttpServletRequest req){
         try {
-            String id = req.getParameter("id");
-            String query = "DELETE FROM usuarios WHERE id=" + id + ";";
-            connection = new MySQLAccess();
+            String id = req.getParameter("tdCedula");
+            String confID = req.getParameter("aux");
+            String query1 = "SELECT ca_id FROM confAsist WHERE asist_id =" + id + " AND conf_id =" + confID + ";";
             connection.connection();
-        
+            ResultSet aux = connection.query(query1);
+            String query = "DELETE FROM confAsist WHERE ca_id=" + aux + ";";
             connection.write(query);
             connection.closeConnection();
             return true;
