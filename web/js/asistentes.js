@@ -85,7 +85,7 @@ $(document).ready(function(){
                                         var form = $('<form>', {action: 'UpdateAsistant', method: 'post'});
                                         var modalBody = $('<div>', {class: 'modal-body'});
                                         
-                                        var value = $('<input>', {type: 'text', name: 'id', value: asistente.cedula});
+                                        var value = $('<input>', {type: 'hidden', name: 'id', value: asistente.cedula});
                                         
                                         var txt1 = $('<div>', {class: 'form-group'});
                                         var value1 = $('<input>', {type: 'text', class: 'form-control', id:'inputAsistantName', 
